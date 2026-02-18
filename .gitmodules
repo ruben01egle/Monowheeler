@@ -1,0 +1,3 @@
+[submodule "MonowheelerControl"]
+	path = MonowheelerControl
+	url = https://github.com/ruben01egle/MonowheelerControl.git
