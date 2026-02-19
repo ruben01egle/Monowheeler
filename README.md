@@ -19,6 +19,22 @@ By moving from passive stability to active control, this vehicle can navigate pa
   </tr>
 </table>
 
+## See it in Action
+**1. Disturbance Rejection & Balancing**\
+*Demonstration of the vehicle maintaining stability against multi-directional external forces.*
+
+https://github.com/user-attachments/assets/cb0de84c-932e-430b-98dd-ca0584cf337f
+
+**2. Active Cornering Control**\
+*Showcasing precise trajectory tracking and controlled cornering dynamics.*
+
+https://github.com/user-attachments/assets/f2f32b2e-e68b-4af0-807c-041e5cef68a0
+
+**3. Precision Maneuvering & Obstacle Avoidance**\
+*Displaying the vehicle's agility and responsiveness required to navigate around obstacles and follow paths.*
+
+https://github.com/user-attachments/assets/538ec53f-5d4b-4c0f-b6e7-cc7b96c15382
+
 ## Project Scope
 The project covers the full mechatronic V-model:
 * **Hardware**
@@ -61,30 +77,24 @@ You can read the full documentation of the engineering process, including mathem
 * 🇩🇪 **[German Version (Original)](./thesis/Bachelor_Thesis_DE.pdf)**
 * 🇬🇧 **[English Version (Translation)](./thesis/Bachelor_Thesis_EN.pdf)**
 
-## Media & Results
-**1. Disturbance Rejection & Balancing**\
-*Demonstration of the vehicle maintaining stability against multi-directional external forces.*
+> **Note on Control Strategy:** While the original thesis utilizes a **Cascaded PID Controller** for balancing the Roll-Yaw-System, this repository has since been upgraded to a full **State-Space Controller**. This evolution provides significantly better stability.
 
-https://github.com/user-attachments/assets/cb0de84c-932e-430b-98dd-ca0584cf337f
+>Note on Language: The original thesis was written in German. For the purpose of this repository and international accessibility, the content has been translated into English using DeepL. Some technical nuances may be best reflected in the original German text.
 
-**2. Active Cornering Control**\
-*Showcasing precise trajectory tracking and controlled cornering dynamics.*
+## Embedded System
+The core control logic resides in the [/MonowheelerControl](./MonowheelerControl/) submodule. While designed for custom hardware, the architecture demonstrates a professional approach to real-time robotics:
 
-https://github.com/user-attachments/assets/f2f32b2e-e68b-4af0-807c-041e5cef68a0
+* **Real-Time Execution**: The control loops (Pitch and Roll-Yaw) run on a Linux RT Kernel to ensure deterministic timing, which is critical for balancing an inherently unstable system.
 
-**3. Precision Maneuvering & Obstacle Avoidance**\
-*Displaying the vehicle's agility and responsiveness required to navigate around obstacles and follow paths.*
+* **Sensor Fusion & Filtering**: Raw IMU data is processed with digital low-pass filtering to suppress mechanical vibrations from the high-RPM gyroscope
 
-https://github.com/user-attachments/assets/538ec53f-5d4b-4c0f-b6e7-cc7b96c15382
+* **State Estimation**: The filtered data is integrated into a complementary filter-based sensor fusion algorithm to provide accurate state estimation.
 
-### Live Data Telemetry
+* **Hardware Abstraction Layer (HAL)**: Custom drivers for hardware modules (PWM, SPI, UART etc.) utilizing Memory-mapped I/O for maximum performance.
+
+* **Telemetry Stream**: A dedicated thread handles high-frequency data logging, streaming internal states via UDP to the Python GUI for live monitoring.
+
+## Live Data Telemetry
 *Telemtry data for passing through a set of cones*
 
 ![passThroughObstacel_StateSpaceRoll](https://github.com/user-attachments/assets/859d1ce8-5a99-465d-8722-b609ca1cf337)
-
-## Repository Structure
-* [/MonowheelerControl](./MonowheelerControl/): Submodule containing the C++/Linux RT control code and the Python Gui.
-
-* [/simulation](./simulation/): Python scripts for EoM and controller testing.
-
-* [/thesis](./thesis/): Documentation and theoretical background.
