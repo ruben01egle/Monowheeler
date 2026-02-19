@@ -49,6 +49,16 @@ The project covers the full mechatronic V-model:
     * **Sensor Fusion:** IMUs and digital filtering.
     * **Real-Time Control:** Control loop running on a Linux RT (Real-Time) Kernel.
     * **Telemetry:** Live data logging and custom Python GUI for real-time visualization.
+ 
+## Bachelor Thesis
+You can read the full documentation of the engineering process, including mathematical derivations, free body diagrams, and control theory:
+
+* 🇩🇪 **[German Version (Original)](./thesis/Monowheeler_Thesis_DE.pdf)**
+* 🇬🇧 **[English Version (Translation)](./thesis/Monowheeler_Thesis_EN.pdf)**
+
+> **Note on Control Strategy:** While the original thesis utilizes a **Cascaded PID Controller** for balancing the Roll-Yaw-System, this repository has since been upgraded to a full **State-Space Controller**. This evolution provides significantly better stability.
+
+>Note on Language: The original thesis was written in German. For the purpose of this repository and international accessibility, the content has been translated into English using DeepL. Some technical nuances may be best reflected in the original German text.
 
 ## Technical Deep Dive: The Challenge of One-Wheel Control
 The vehicle is divided into two primary control systems:
@@ -70,16 +80,6 @@ This is a highly non-linear, underactuated, and coupled system. Lateral stabilit
 The repository includes a simulation where the motion equations from the thesis are implemented. This allows for testing the State-Space and PID controllers before deployment. Since the physical hardware is not available to everyone, the [Simulation Folder](./simulation/) serves as the primary way to interact with the project.
 
 >Disclaimer: Friction parameters in the simulation are approximations. However, the qualitative behavior and stability margins have been successfully verified on the physical hardware.
-
-## Bachelor Thesis
-You can read the full documentation of the engineering process, including mathematical derivations, free body diagrams, and control theory:
-
-* 🇩🇪 **[German Version (Original)](./thesis/Monowheeler_Thesis_DE.pdf)**
-* 🇬🇧 **[English Version (Translation)](./thesis/Monowheeler_Thesis_EN.pdf)**
-
-> **Note on Control Strategy:** While the original thesis utilizes a **Cascaded PID Controller** for balancing the Roll-Yaw-System, this repository has since been upgraded to a full **State-Space Controller**. This evolution provides significantly better stability.
-
->Note on Language: The original thesis was written in German. For the purpose of this repository and international accessibility, the content has been translated into English using DeepL. Some technical nuances may be best reflected in the original German text.
 
 ## Embedded System
 The core control logic resides in the [/MonowheelerControl](./MonowheelerControl/) submodule. While designed for custom hardware, the architecture demonstrates a professional approach to real-time robotics:
