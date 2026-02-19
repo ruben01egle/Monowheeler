@@ -63,19 +63,24 @@ You can read the full documentation of the engineering process, including mathem
 
 ## Media & Results
 **1. Disturbance Rejection & Balancing**\
-*Demonstration of the vehicle maintaining stability against multi-directional external forces.*\
+*Demonstration of the vehicle maintaining stability against multi-directional external forces.*
+
 https://github.com/user-attachments/assets/cb0de84c-932e-430b-98dd-ca0584cf337f
 
 **2. Active Cornering Control**\
-*Showcasing precise trajectory tracking and controlled cornering dynamics.*\
+*Showcasing precise trajectory tracking and controlled cornering dynamics.*
+
 https://github.com/user-attachments/assets/f2f32b2e-e68b-4af0-807c-041e5cef68a0
 
 **3. Precision Maneuvering & Obstacle Avoidance**\
-*Displaying the vehicle's agility and responsiveness required to navigate around obstacles and follow paths.*\
+*Displaying the vehicle's agility and responsiveness required to navigate around obstacles and follow paths.*
+
 https://github.com/user-attachments/assets/538ec53f-5d4b-4c0f-b6e7-cc7b96c15382
 
 ### Live Data Telemetry
+*Telemtry data for passing through a set of cones*
 
+![passThroughObstacel_StateSpaceRoll](https://github.com/user-attachments/assets/859d1ce8-5a99-465d-8722-b609ca1cf337)
 
 ## Repository Structure
 * [/MonowheelerControl](./MonowheelerControl/): Submodule containing the C++/Linux RT control code and the Python Gui.
