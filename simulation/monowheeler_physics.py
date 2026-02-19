@@ -29,7 +29,7 @@ class MonowheelerConfig:
         self.SERVO_ROLL_K = 0.85
         self.SERVO_ROLL_T = 0.10
         self.WHEEL_K = 1.0
-        self.WHEEL_T = 0.1
+        self.WHEEL_T = 0.3
 
         # --- limits ---
         self.MAX_THETA = 0.175
