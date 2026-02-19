@@ -74,8 +74,8 @@ The repository includes a simulation where the motion equations from the thesis 
 ## Bachelor Thesis
 You can read the full documentation of the engineering process, including mathematical derivations, free body diagrams, and control theory:
 
-* 🇩🇪 **[German Version (Original)](./thesis/Bachelor_Thesis_DE.pdf)**
-* 🇬🇧 **[English Version (Translation)](./thesis/Bachelor_Thesis_EN.pdf)**
+* 🇩🇪 **[German Version (Original)](./thesis/Monowheeler_Thesis_DE.pdf)**
+* 🇬🇧 **[English Version (Translation)](./thesis/Monowheeler_Thesis_EN.pdf)**
 
 > **Note on Control Strategy:** While the original thesis utilizes a **Cascaded PID Controller** for balancing the Roll-Yaw-System, this repository has since been upgraded to a full **State-Space Controller**. This evolution provides significantly better stability.
 
