@@ -17,7 +17,7 @@ controller = PitchController(ctrl_cfg)
 solver = NLSolver(model.dynamics, controller, dt)
 
 # Initialisierung Zustandsvektor: [theta, dot_theta, sum_theta, p]
-x0 = np.array([np.deg2rad(5.0), 0.0, 0.0, 0.0])
+x0 = np.array([np.deg2rad(5.0), 0.0, 0.0])
 
 def disturbance(t):
     if t > 5 and t < 5.1:

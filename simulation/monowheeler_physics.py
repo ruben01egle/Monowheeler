@@ -19,16 +19,16 @@ class MonowheelerConfig:
         
         # --- Dynamik & Environment ---
         self.V = 1.5                 # m/s (velocity)
-        self.FRICTION_ROLL_COEFF = 100
+        self.FRICTION_ROLL_COEFF = 200
         self.FRICTION_YAW_COEFF = 0.005
-        self.STATIC_FRICTION_M = 0.5
-        self.STATIC_FRICTION_DOT_PHI = 0.04
+        self.STATIC_FRICTION_M = 0.08
+        self.STATIC_FRICTION_DOT_PHI = 0.02
         
         # --- Servo PT1 ---
         self.SERVO_PITCH_K = 0.85
         self.SERVO_PITCH_T = 0.045
         self.SERVO_ROLL_K = 0.85
-        self.SERVO_ROLL_T = 0.13
+        self.SERVO_ROLL_T = 0.10
 
         # --- limits ---
         self.MAX_THETA = 0.175
@@ -57,8 +57,8 @@ class MonowheelerPitchPhysics:
         self.cfg = config
     
     def dynamics(self, x, u, t, dist=0.0):
-        # x = [theta, dot_theta, Int(-theta), p]
-        theta, dot_theta, sum_theta, p = x
+        # x = [theta, dot_theta, p]
+        theta, dot_theta, p = x
         p_cmd = u
         M_dist = dist
 
@@ -80,16 +80,16 @@ class MonowheelerPitchPhysics:
         elif p <= -self.cfg.MAX_P and dot_p < 0:
             dot_p = 0
         
-        return np.array([dot_theta, ddot_theta, -theta, dot_p])
+        return np.array([dot_theta, ddot_theta, dot_p])
     
-class MonowheelerRollYaw:
+class MonowheelerRollYawPhysics:
     def __init__(self, config):
         self.cfg = config
 
     def dynamics(self, x, u, t, dist=0.0):
-        # x = [phi, dot_phi, psi, dot_psi, psi_k, Int(psi_k), dot_psi_k, v]
-        phi, dot_phi, psi, dot_psi, psi_k, sum_psi_k, dot_psi_k, v = x
-        dot_psi_k_cmd = u
+        # x = [phi, dot_phi, dot_psi, psi_k, dot_psi_k, v]
+        phi, dot_phi, dot_psi, psi_k, dot_psi_k, v = x
+        dot_psi_k_cmd = u[0] if isinstance(u, (list, np.ndarray)) else u
         M_dist = dist
         
         ddot_psi_k = (self.cfg.SERVO_ROLL_K * dot_psi_k_cmd - dot_psi_k) / self.cfg.SERVO_ROLL_T
@@ -124,4 +124,4 @@ class MonowheelerRollYaw:
             ddot_phi = 0
             dot_phi = 0
 
-        return np.array([dot_phi, ddot_phi, dot_psi, ddot_psi, dot_psi_k, psi_k, ddot_psi_k, 0])
+        return np.array([dot_phi, ddot_phi, ddot_psi, dot_psi_k, ddot_psi_k, 0])

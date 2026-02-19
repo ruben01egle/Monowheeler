@@ -14,14 +14,16 @@ class NLSolver:
         steps = int(duration / self.dt)
         t_vec = np.linspace(0, duration, steps)
         results = np.zeros((steps, len(x0)))
-        u_vec = np.zeros(steps)
+        u_init = self.ctrl.update(x0, 0,)
+        u_dim = len(u_init) if isinstance(u_init, (list, np.ndarray)) else 1
+        u_vec = np.zeros((steps, u_dim))
         
         x = x0
         for i in range(steps):
             t = t_vec[i]
             results[i, :] = x
             u = self.ctrl.update(x, t)
-            u_vec[i] = u
+            u_vec[i, :] = u
 
             extra_args = (callback(t),) if callback else ()
             x = self.step(x, u, t, *extra_args)

@@ -22,12 +22,12 @@ MOI_GYRO = 3.3991489e-03
 
 # Servo PT1
 SERVO_K = 0.85
-SERVO_T = 0.13
+SERVO_T = 0.10
 
 v = 1.5                        #konst Geschwindigkeit in Fahrtrichtung
 
 friction_roll_coeff = 200
-friction_yaw_coeff = 0.2
+friction_yaw_coeff = 0.005
 static_friction_yaw_threshhold_M = 0.08
 static_friction_yaw_threshhold_dot_phi = 0.02
 
@@ -77,9 +77,9 @@ KP_TRAJ_BAL = 0.02
 KD_TRAJ_BAL = 0.003
 KI_TRAJ_BAL = 0.01
 
-KP_TRAJ_YAW = 0.8
-KD_TRAJ_YAW = 0.15
-KI_TRAJ_YAW = 0
+KP_TRAJ_YAW = 1.2
+KD_TRAJ_YAW = 0.2
+KI_TRAJ_YAW = 1.5
 
 # discrete control system variables\
 ctrl_fa = 250
@@ -108,7 +108,7 @@ ctrl_psi_K = 0
 corner = False
 
 # Initial condition
-phi[0] = np.deg2rad(1)
+phi[0] = np.deg2rad(0)
 ctrl_phi_target = 0.00
 
 for n in range(1, steps):
@@ -199,7 +199,7 @@ for n in range(1, steps):
         phi[n] = np.sign(phi[n])*0.25
 
     # dot_psi Gleitreibung und Haftreibung und Integration psi
-    M_psi_ges[n-1] = M_kpsi[n-1] + M_Stoerung_Psi[n] - np.sign(dot_psi[n-1])*0.005*dot_psi[n-1]**2
+    M_psi_ges[n-1] = M_kpsi[n-1] + M_Stoerung_Psi[n] - np.sign(dot_psi[n-1])*friction_yaw_coeff*dot_psi[n-1]**2
     if abs(M_psi_ges[n-1]) < static_friction_yaw_threshhold_M  and abs(dot_psi[n-1]) < static_friction_yaw_threshhold_dot_phi:
         ddot_psi[n-1] = 0
         dot_psi[n] = 0
