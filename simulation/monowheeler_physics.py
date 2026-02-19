@@ -18,17 +18,18 @@ class MonowheelerConfig:
         self.MOI_GYRO = 3.3991489e-03 # kg*m^2
         
         # --- Dynamik & Environment ---
-        self.V = 1.5                 # m/s (velocity)
         self.FRICTION_ROLL_COEFF = 200
-        self.FRICTION_YAW_COEFF = 0.005
-        self.STATIC_FRICTION_M = 0.08
-        self.STATIC_FRICTION_DOT_PHI = 0.02
+        self.FRICTION_YAW_COEFF = 0.01
+        self.STATIC_FRICTION_YAW_M_THRESH = 0.03
+        self.STATIC_FRICTION_YAW_DOT_PHI_THRESH = 0.01
         
-        # --- Servo PT1 ---
+        # --- Acuators PT1 ---
         self.SERVO_PITCH_K = 0.85
         self.SERVO_PITCH_T = 0.045
         self.SERVO_ROLL_K = 0.85
         self.SERVO_ROLL_T = 0.10
+        self.WHEEL_K = 1.0
+        self.WHEEL_T = 0.1
 
         # --- limits ---
         self.MAX_THETA = 0.175
@@ -89,21 +90,28 @@ class MonowheelerRollYawPhysics:
     def dynamics(self, x, u, t, dist=0.0):
         # x = [phi, dot_phi, dot_psi, psi_k, dot_psi_k, v]
         phi, dot_phi, dot_psi, psi_k, dot_psi_k, v = x
-        dot_psi_k_cmd = u[0] if isinstance(u, (list, np.ndarray)) else u
+        dot_psi_k_cmd, _, _, v_cmd = u
         M_dist = dist
+
+        friction_roll = self.cfg.FRICTION_ROLL_COEFF*(1.0 + 1.0/(abs(v)+0.1))
+        static_friction_M_thresh = self.cfg.STATIC_FRICTION_YAW_M_THRESH*(1.0 + 1.0/(abs(v)+0.1))
+        static_friction_dotphi_thresh = self.cfg.STATIC_FRICTION_YAW_DOT_PHI_THRESH*(1.0 + 1.0/(abs(v)+0.1))
         
         ddot_psi_k = (self.cfg.SERVO_ROLL_K * dot_psi_k_cmd - dot_psi_k) / self.cfg.SERVO_ROLL_T
 
         M_k_phi = self.cfg.MOI_GYRO*self.cfg.W_K*(dot_psi + dot_psi_k)
         M_k_psi = -self.cfg.MOI_GYRO*self.cfg.W_K*dot_phi
 
-        ddot_phi = 1/self.cfg.MOI_XX_TAU * (M_k_phi + self.cfg.MASS_TOTAL*v*dot_psi*self.cfg.H_0 + self.cfg.F_G*np.sin(phi)*self.cfg.H_0 + M_dist) - np.sign(dot_phi)*self.cfg.FRICTION_ROLL_COEFF*dot_phi**2
+        ddot_phi = 1/self.cfg.MOI_XX_TAU * (M_k_phi + self.cfg.MASS_TOTAL*v*dot_psi*self.cfg.H_0 + self.cfg.F_G*np.sin(phi)*self.cfg.H_0 + M_dist) - np.sign(dot_phi)*friction_roll*dot_phi**2
 
         M_psi = M_k_psi - np.sign(dot_psi)*self.cfg.FRICTION_YAW_COEFF*dot_psi**2
-        if abs(M_psi) < self.cfg.STATIC_FRICTION_M  and abs(dot_psi) < self.cfg.STATIC_FRICTION_DOT_PHI:
-            ddot_psi = 0
+        if abs(M_psi) < static_friction_M_thresh  and abs(dot_psi) < static_friction_dotphi_thresh:
+            friction_stick = 100
+            ddot_psi = -friction_stick*dot_psi
         else:
             ddot_psi = 1/self.cfg.MOI_ZZ*M_psi
+
+        dot_v = (self.cfg.WHEEL_K * v_cmd - v) / self.cfg.WHEEL_T
 
         if psi_k >= self.cfg.MAX_PSI_K and dot_psi_k > 0:
             dot_psi_k = 0
@@ -124,4 +132,4 @@ class MonowheelerRollYawPhysics:
             ddot_phi = 0
             dot_phi = 0
 
-        return np.array([dot_phi, ddot_phi, ddot_psi, dot_psi_k, ddot_psi_k, 0])
+        return np.array([dot_phi, ddot_phi, ddot_psi, dot_psi_k, ddot_psi_k, dot_v])

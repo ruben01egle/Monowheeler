@@ -10,10 +10,16 @@ Ta = 1/250
 T_end = 15.0
 
 def corner_generator(t):
-    dot_psi_target = 0
-    if t > 1 and t < 5:
+    if t > 1 and t < 2:
+        v_target = 1.2
+        dot_psi_target = 0.0
+    elif t > 2 and t < 6:
+        v_target = 1.2
         dot_psi_target = -0.15
-    return dot_psi_target
+    else:
+        dot_psi_target = 0.0
+        v_target = 0.4
+    return dot_psi_target, v_target
 
 # 1. Setup
 physics_cfg = MonowheelerConfig()
@@ -24,7 +30,7 @@ controller = RollYawController(ctrl_cfg_roll, ctrl_cfg_yaw)
 solver = NLSolver(model.dynamics, controller, dt)
 
 # Initialisierung Zustandsvektor: [phi, dot_phi, psi, dot_psi, psi_k, dot_psi_k, v]
-x0 = np.array([0.0, 0.0, 0.0, 0.0, 0.0, physics_cfg.V])
+x0 = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 
 t_vec, x_vec, u_vec  = solver.simulate(x0, T_end)
 

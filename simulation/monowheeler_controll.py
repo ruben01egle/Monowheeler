@@ -42,7 +42,7 @@ class YawControllerConfig:
         self.TA = TA
         self.roll_pid = np.array([15.0, 3.0, 3.0])
         self.yaw_pid = np.array([1.2, 0.2, 1.5])
-        self.MAX_DOT_PSI = 0.09
+        self.MAX_DOT_PSI = 10
         self.MAX_DOT_PSI_K = 5
         self.callback = callback
     
@@ -54,6 +54,7 @@ class RollYawController():
         self.phi_target = 0
         self.dot_psi_target = 0
         self.dot_psi_k_cmd = 0.0
+        self.v_cmd = 0.3
         self.cfg_yaw = config_yaw
         if self.cfg_yaw:
             self.pid_roll = PID(self.cfg_yaw.roll_pid, self.cfg_yaw.TA, self.cfg_yaw.MAX_DOT_PSI_K)
@@ -61,11 +62,11 @@ class RollYawController():
 
     def update(self, x, t):
         if t - self.last_sync_t < self.cfg_roll.TA:
-            return np.array([self.dot_psi_k_cmd, self.phi_target, self.dot_psi_target])
+            return np.array([self.dot_psi_k_cmd, self.phi_target, self.dot_psi_target, self.v_cmd])
 
         phi, dot_phi, dot_psi, psi_k, dot_psi_k, v = x
         if self.cfg_yaw:
-            self.dot_psi_target = self.cfg_yaw.callback(t)
+            self.dot_psi_target, self.v_cmd = self.cfg_yaw.callback(t)
         
         if self.dot_psi_target != 0:
             dot_phi_target = -self.pid_yaw.control(self.dot_psi_target, dot_psi)
@@ -81,7 +82,7 @@ class RollYawController():
         self.dot_psi_k_cmd = np.clip(u, -self.cfg_roll.MAX_DOT_PSI_K, self.cfg_roll.MAX_DOT_PSI_K)
         
         self.last_sync_t = t
-        return np.array([self.dot_psi_k_cmd, self.phi_target, self.dot_psi_target])
+        return np.array([self.dot_psi_k_cmd, self.phi_target, self.dot_psi_target, self.v_cmd])
     
 class PID:
     def __init__(self, K, TA, MAX_U):
