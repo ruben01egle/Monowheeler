@@ -12,8 +12,7 @@ Since the hardware is custom-built, I have included a simulation environment to 
 2. Go to: `cd MonowheelerControl/simulation`
 3. Run: `python run_monowheeler_sim.py`
 
-<video src="https://github.com/user-attachments/assets/cb0de84c-932e-430b-98dd-ca0584cf337f" autoplay loop muted playsinline width="100%"></video>
-
+https://github.com/user-attachments/assets/cb0de84c-932e-430b-98dd-ca0584cf337f
 
 
 https://github.com/user-attachments/assets/f2f32b2e-e68b-4af0-807c-041e5cef68a0
