@@ -1,4 +1,8 @@
+# Active Gyroscopic Stabilization of a One-Wheeled Vehicle
+**Inspired by Charles Taylor | Advanced Control Systems Engineering**
+This repository contains the complete development of an actively stabilized one-wheeled vehicle. Unlike traditional unicycles, this system utilizes the gyroscopic effect for lateral stability and maneuverability, allowing it to perform controlled turns by exploiting non-linear coupling and friction dynamics.
 
+## Demo
 <table style="width: 100%; border-collapse: collapse;">
   <tr>
     <td align="center" width="50%">
@@ -21,10 +25,6 @@
     </td>
   </tr>
 </table>
-
-# Active Gyroscopic Stabilization of a One-Wheeled Vehicle
-**Inspired by Charles Taylor | Advanced Control Systems Engineering**
-This repository contains the complete development of an actively stabilized one-wheeled vehicle. Unlike traditional unicycles, this system utilizes the gyroscopic effect for lateral stability and maneuverability, allowing it to perform controlled turns by exploiting non-linear coupling and friction dynamics.
 
 ## From Taylor to Today
 In the 1960s, Charles Taylor conceptualized a one-wheeled vehicle that intrigued the world with its unique physics. Taylor's original design laid the groundwork this project builds upon: it is the first of its kind to implement active gyroscopic stabilization specifically designed for intentional cornering.
