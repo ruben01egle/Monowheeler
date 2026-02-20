@@ -1,3 +1,27 @@
+
+<table style="width: 100%; border-collapse: collapse;">
+  <tr>
+    <td align="center" width="50%">
+      <b>Disturbance Rejection</b><br />
+      <img src="https://github.com/user-attachments/assets/c44e635b-6c10-46e9-8ca1-19bef87ef57e" width="100%">
+    </td>
+    <td align="center" width="50%">
+      <b>Cornering</b><br />
+      <img src="https://github.com/user-attachments/assets/bf01060b-c8fa-4b53-9a0b-fec958b79e42" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>Slalom</b><br />
+      <img src="https://github.com/user-attachments/assets/aa16b217-af68-483c-b0ea-a0bb18580b33" width="100%">
+    </td>
+    <td align="center" width="50%">
+      <b>Obstacle Avoidance</b><br />
+      <img src="https://github.com/user-attachments/assets/10eb94c6-4dc4-4cfd-a49b-ca486a575780" width="100%">
+    </td>
+  </tr>
+</table>
+
 # Active Gyroscopic Stabilization of a One-Wheeled Vehicle
 **Inspired by Charles Taylor | Advanced Control Systems Engineering**
 This repository contains the complete development of an actively stabilized one-wheeled vehicle. Unlike traditional unicycles, this system utilizes the gyroscopic effect for lateral stability and maneuverability, allowing it to perform controlled turns by exploiting non-linear coupling and friction dynamics.
@@ -18,22 +42,6 @@ By moving from passive stability to active control, this vehicle can navigate pa
     </td>
   </tr>
 </table>
-
-## See it in Action
-**1. Disturbance Rejection & Balancing**\
-*Demonstration of the vehicle maintaining stability against multi-directional external forces.*
-
-<video src="https://github.com/user-attachments/assets/cb0de84c-932e-430b-98dd-ca0584cf337f" autoplay loop muted playsinline width="100%"></video>
-
-**2. Active Cornering Control**\
-*Showcasing precise trajectory tracking and controlled cornering dynamics.*
-
-<video src="https://github.com/user-attachments/assets/f2f32b2e-e68b-4af0-807c-041e5cef68a0" autoplay loop muted playsinline width="100%"></video>
-
-**3. Precision Maneuvering & Obstacle Avoidance**\
-*Displaying the vehicle's agility and responsiveness required to navigate around obstacles and follow paths.*
-
-<video src="https://github.com/user-attachments/assets/538ec53f-5d4b-4c0f-b6e7-cc7b96c15382" autoplay loop muted playsinline width="100%"></video>
 
 ## Project Scope
 The project covers the full mechatronic V-model:
@@ -81,6 +89,9 @@ The repository includes a simulation where the motion equations from the thesis 
 
 >Disclaimer: Friction parameters in the simulation are approximations. However, the qualitative behavior and stability margins have been successfully verified on the physical hardware.
 
+## Media & Visual Documentation
+While the snippets above provide a quick look, the full technical evaluation is documented in higher detail within the [**media/**](./media/) directory.
+
 ## Embedded System
 The core control logic resides in the [/MonowheelerControl](https://github.com/ruben01egle/MonowheelerControl.git) submodule. While designed for custom hardware, the architecture demonstrates a professional approach to real-time robotics:
 
@@ -94,7 +105,7 @@ The core control logic resides in the [/MonowheelerControl](https://github.com/r
 
 * **Telemetry Stream**: A dedicated thread handles high-frequency data logging, streaming internal states via UDP to the Python GUI for live monitoring.
 
-## Live Data Telemetry
+## Live Telemetry Data
 *Telemtry data for passing through a set of cones*
 
 ![passThroughObstacel_StateSpaceRoll](https://github.com/user-attachments/assets/859d1ce8-5a99-465d-8722-b609ca1cf337)
