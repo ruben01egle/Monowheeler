@@ -1,7 +1,7 @@
-from monowheeler_physics import MonowheelerConfig, MonowheelerRollYawPhysics
-from monowheeler_controll import RollYawController, RollControllerConfig
-from solver import NLSolver
-from plots import roll_plot
+from framework.monowheeler_physics import MonowheelerConfig, MonowheelerRollYawPhysics
+from framework.monowheeler_controll import RollYawController, RollControllerConfig
+from framework.solver import NLSolver
+from framework.plots import roll_plot
 
 import numpy as np
 

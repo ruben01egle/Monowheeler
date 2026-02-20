@@ -1,7 +1,7 @@
-from monowheeler_physics import MonowheelerConfig, MonowheelerPitchPhysics
-from monowheeler_controll import PitchController, PitchControllerConfig
-from solver import NLSolver
-from plots import pitch_plot
+from framework.monowheeler_physics import MonowheelerConfig, MonowheelerPitchPhysics
+from framework.monowheeler_controll import PitchController, PitchControllerConfig
+from framework.solver import NLSolver
+from framework.plots import pitch_plot
 
 import numpy as np
 

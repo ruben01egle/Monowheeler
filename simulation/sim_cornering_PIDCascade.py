@@ -1,7 +1,7 @@
-from monowheeler_physics import MonowheelerConfig, MonowheelerRollYawPhysics
-from monowheeler_controll import RollYawController, RollControllerConfig, YawControllerConfig
-from solver import NLSolver
-from plots import roll_yaw_plot
+from framework.monowheeler_physics import MonowheelerConfig, MonowheelerRollYawPhysics
+from framework.monowheeler_controll import RollYawController, RollControllerConfig, YawControllerConfig
+from framework.solver import NLSolver
+from framework.plots import roll_yaw_plot
 
 import numpy as np
 
@@ -13,7 +13,7 @@ def corner_generator(t):
     if t > 1 and t < 2:
         v_target = 1.2
         dot_psi_target = 0.0
-    elif t > 2 and t < 6:
+    elif t > 2 and t < 5.5:
         v_target = 1.2
         dot_psi_target = -0.15
     else:

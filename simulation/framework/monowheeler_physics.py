@@ -8,7 +8,7 @@ class MonowheelerConfig:
         self.G = 9.81                # m/s^2
         self.H_0 = 0.1123            # m (hight cog)
         
-        # --- Trägheitsmomente (MOI) ---
+        # --- inertia (MOI) ---
         self.MOI_XX_TAU = 0.2489     # kg*m^2 (Roll)
         self.MOI_YY_TAU = 0.6826     # kg*m^2 (Pitch)
         self.MOI_ZZ = 0.5017         # kg*m^2 (Yaw)
@@ -17,17 +17,17 @@ class MonowheelerConfig:
         self.N_K = 5000              # RPM
         self.MOI_GYRO = 3.3991489e-03 # kg*m^2
         
-        # --- Dynamik & Environment ---
+        # --- dynamics & Environment ---
         self.FRICTION_ROLL_COEFF = 200
         self.FRICTION_YAW_COEFF = 0.01
         self.STATIC_FRICTION_YAW_M_THRESH = 0.03
         self.STATIC_FRICTION_YAW_DOT_PHI_THRESH = 0.01
         
-        # --- Acuators PT1 ---
+        # --- acuators PT1 ---
         self.SERVO_PITCH_K = 0.85
         self.SERVO_PITCH_T = 0.045
         self.SERVO_ROLL_K = 0.85
-        self.SERVO_ROLL_T = 0.10
+        self.SERVO_ROLL_T = 0.13
         self.WHEEL_K = 1.0
         self.WHEEL_T = 0.3
 
