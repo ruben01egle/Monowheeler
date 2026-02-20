@@ -82,7 +82,7 @@ The repository includes a simulation where the motion equations from the thesis 
 >Disclaimer: Friction parameters in the simulation are approximations. However, the qualitative behavior and stability margins have been successfully verified on the physical hardware.
 
 ## Embedded System
-The core control logic resides in the [/MonowheelerControl](./MonowheelerControl/) submodule. While designed for custom hardware, the architecture demonstrates a professional approach to real-time robotics:
+The core control logic resides in the [/MonowheelerControl](MonowheelerControl) submodule. While designed for custom hardware, the architecture demonstrates a professional approach to real-time robotics:
 
 * **Real-Time Execution**: The control loops (Pitch and Roll-Yaw) run on a Linux RT Kernel to ensure deterministic timing, which is critical for balancing an inherently unstable system.
 
