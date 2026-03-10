@@ -13,5 +13,3 @@
 *Displaying the vehicle's agility and responsiveness required to navigate around obstacles and follow paths.*
 
 <video src="https://github.com/user-attachments/assets/538ec53f-5d4b-4c0f-b6e7-cc7b96c15382" autoplay loop muted playsinline width="100%"></video>
-
-<video src="https://github.com/user-attachments/assets/e39d951c-58cb-4494-b71e-9052d01720a4" autoplay loop muted playsinline width="100%"></video>
